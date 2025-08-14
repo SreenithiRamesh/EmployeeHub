@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { pool } = require('../config/db'); // Using the connection pool from your db config
-
-// ========== DASHBOARD ROUTES ==========
+const { pool } = require('../config/db'); 
 router.get('/dashboard/department-stats', async (req, res) => {
   let connection;
   try {
@@ -200,7 +198,7 @@ router.get('/reports/performance-metrics', async (req, res) => {
   try {
     connection = await pool.getConnection();
     
-    // Calculate retention rate (employees who stayed more than 1 year / total)
+   
     const [retentionData] = await connection.query(`
       SELECT 
         COUNT(*) as total,
@@ -208,7 +206,7 @@ router.get('/reports/performance-metrics', async (req, res) => {
       FROM employees
     `);
     
-    // Calculate average tenure
+   
     const [tenureData] = await connection.query(`
       SELECT AVG(DATEDIFF(CURDATE(), hire_date) / 365) as avg_tenure 
       FROM employees 
@@ -239,7 +237,7 @@ router.get('/reports/performance-metrics', async (req, res) => {
   }
 });
 
-// ========== GROWTH ANALYTICS ==========
+
 router.get('/reports/growth-analytics', async (req, res) => {
   let connection;
   try {
@@ -261,8 +259,7 @@ router.get('/reports/growth-analytics', async (req, res) => {
       GROUP BY DATE_FORMAT(hire_date, '%Y-%m'), DATE_FORMAT(hire_date, '%M %Y')
       ORDER BY month
     `);
-    
-    // Department growth comparison
+
     const [departmentGrowth] = await connection.query(`
       SELECT 
         d.id,
@@ -292,7 +289,7 @@ router.get('/reports/growth-analytics', async (req, res) => {
   }
 });
 
-// ========== REAL-TIME METRICS ==========
+
 router.get('/reports/realtime-metrics', async (req, res) => {
   let connection;
   try {
@@ -306,8 +303,7 @@ router.get('/reports/realtime-metrics', async (req, res) => {
         COUNT(*) as total_employees
       FROM employees
     `);
-    
-    // Department activity
+   
     const [departmentActivity] = await connection.query(`
       SELECT 
         d.id,

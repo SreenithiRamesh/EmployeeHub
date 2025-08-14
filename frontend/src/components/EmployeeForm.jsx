@@ -20,7 +20,7 @@ const EmployeeForm = ({ initialData = {}, onSubmit, onCancel, isSubmitting = fal
   const [skillSearchTerm, setSkillSearchTerm] = useState('');
 
   useEffect(() => {
-    // Load initial data if editing
+   
     if (initialData && Object.keys(initialData).length > 0) {
       // Convert hire_date to proper format for input[type="date"]
       let hireDate = '';
@@ -705,7 +705,7 @@ const EmployeeForm = ({ initialData = {}, onSubmit, onCancel, isSubmitting = fal
               onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
             />
             
-            {/* Skills Dropdown */}
+ 
             {skillSearchTerm && (
               <div style={{
                 position: 'absolute',
@@ -740,7 +740,7 @@ const EmployeeForm = ({ initialData = {}, onSubmit, onCancel, isSubmitting = fal
                   </div>
                 ))}
                 
-                {/* New skill suggestion */}
+                
                 {getNewSkillSuggestion() && (
                   <div
                     onClick={() => handleSkillAdd(getNewSkillSuggestion())}

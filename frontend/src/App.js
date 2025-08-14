@@ -5,13 +5,13 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { AuthProvider, useAuth } from './context/AuthContext';
 
 import LoginPage from './pages/LoginPage';
-import Dashboard from './pages/Dashboard'; // Your old dashboard
-import EmployeeDashboard from './pages/Dashboard'; // New dashboard component
+import Dashboard from './pages/Dashboard'; 
+
 import EmployeeList from './pages/EmployeeList';
 import EmployeeForm from './components/EmployeeForm';
 import AddEmployee from './components/AddEmployee';
 import EditEmployee from './components/EditEmployee';
-import Reports from './pages/Reports';  // <-- Added import here
+import Reports from './pages/Reports'; 
 import "./App.css";
 
 const theme = createTheme({
@@ -55,35 +55,33 @@ export default function App() {
           <Routes>
             <Route path="/login" element={<LoginPage />} />
                      
-            {/* Main Dashboard Route - Using new EmployeeDashboard */}
+       
             <Route path="/" element={
               <ProtectedRoute>
                 <Dashboard />
               </ProtectedRoute>
             } />
             
-            {/* Alternative dashboard route */}
+
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <Dashboard />
               </ProtectedRoute>
             } />
             
-            {/* Old Dashboard Route (if you still need it) */}
+
             <Route path="/old-dashboard" element={
               <ProtectedRoute>
                 <Dashboard />
               </ProtectedRoute>
             } />
-                     
-            {/* Employee List Route */}
+ 
             <Route path="/employees" element={
               <ProtectedRoute roles={['HR', 'Manager']}>
                 <EmployeeList />
               </ProtectedRoute>
             } />
-                     
-            {/* Add Employee Routes - Supporting both URL patterns */}
+
             <Route path="/employees/add" element={
               <ProtectedRoute roles={['HR']}>
                 <AddEmployee />
@@ -95,8 +93,7 @@ export default function App() {
                 <AddEmployee />
               </ProtectedRoute>
             } />
-                     
-            {/* Edit Employee Routes - Supporting both URL patterns */}
+    
             <Route path="/employees/edit/:id" element={
               <ProtectedRoute roles={['HR']}>
                 <EditEmployee />
@@ -110,7 +107,7 @@ export default function App() {
             } />
 
             
-            <Route path="/reports" element={  // <-- Updated to use Reports component instead of div
+            <Route path="/reports" element={  
               <ProtectedRoute roles={['HR', 'Manager']}>
                 <Reports />
               </ProtectedRoute>
@@ -122,7 +119,7 @@ export default function App() {
               </ProtectedRoute>
             } />
                      
-            {/* Catch-all route */}
+   
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AuthProvider>

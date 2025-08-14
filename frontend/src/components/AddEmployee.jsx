@@ -19,7 +19,6 @@ export default function AddEmployee() {
     try {
       console.log('Submitting employee data:', employeeData);
 
-      // Map frontend fields to database schema
       const dataToSubmit = {
         first_name: employeeData.first_name?.trim(),
         last_name: employeeData.last_name?.trim(),

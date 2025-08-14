@@ -1,12 +1,11 @@
 const db = require('../config/db');
 
-// Helper function for error handling
 const handleQueryError = (res, err) => {
   console.error('Database error:', err);
   return res.status(500).json({ error: err.message });
 };
 
-// Helper function to get or create skill by name
+
 const getOrCreateSkillId = async (connection, skillName) => {
   try {
     const [existingSkills] = await connection.query(
@@ -359,15 +358,11 @@ exports.getDashboardDepartmentStats = async (req, res) => {
   }
 };
 
-// ========== SKILL RELATED FUNCTIONS ==========
-
-// Get all skills
-// Get all skills
 exports.getAllSkills = async (req, res) => {
   const connection = await db.getConnection();
   try {
     const [rows] = await connection.query('SELECT id, name FROM skills ORDER BY name');
-    res.json(rows);  // Return objects with id and name, not just names
+    res.json(rows); 
   } catch (err) {
     handleQueryError(res, err);
   } finally {
@@ -375,7 +370,6 @@ exports.getAllSkills = async (req, res) => {
   }
 };
 
-// Add employee skill
 exports.addEmployeeSkill = async (req, res) => {
   const connection = await db.getConnection();
   try {
@@ -391,7 +385,6 @@ exports.addEmployeeSkill = async (req, res) => {
   }
 };
 
-// Get employee skills by employee ID
 exports.getEmployeeSkills = async (req, res) => {
   const connection = await db.getConnection();
   try {
@@ -441,9 +434,7 @@ exports.getEmployeeProjectDetails = async (req, res) => {
   }
 };
 
-// ========== DASHBOARD & ANALYTICS FUNCTIONS ==========
 
-// Dashboard Statistics
 exports.getDashboardStats = async (req, res) => {
   const connection = await db.getConnection();
   try {
@@ -548,13 +539,11 @@ exports.getHiringTrends = async (req, res) => {
   }
 };
 
-// ========== ENHANCED ANALYTICS FUNCTIONS ==========
 
-// Enhanced Salary Analysis with more detailed data
 exports.getSalaryAnalysis = async (req, res) => {
   const connection = await db.getConnection();
   try {
-    // Get comprehensive salary statistics
+
     const statsQuery = `
       SELECT 
         ROUND(AVG(salary), 0) as average_salary,
@@ -566,7 +555,7 @@ exports.getSalaryAnalysis = async (req, res) => {
       WHERE salary IS NOT NULL AND salary > 0 AND (status = 'Active' OR status IS NULL)
     `;
     
-    // Calculate median salary
+
     const medianQuery = `
       SELECT AVG(salary) as median_salary
       FROM (
@@ -607,7 +596,7 @@ exports.getSalaryAnalysis = async (req, res) => {
       ORDER BY MIN(salary)
     `;
 
-    // Salary by department
+
     const departmentSalaryQuery = `
       SELECT 
         d.name as department,

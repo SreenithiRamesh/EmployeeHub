@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 
-// Input validation middleware
 const validateLoginInput = (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -13,7 +12,6 @@ const validateLoginInput = (req, res, next) => {
   next();
 };
 
-// Login endpoint with detailed logs for debugging
 router.post('/login', validateLoginInput, async (req, res) => {
   try {
     const { username, password } = req.body;
